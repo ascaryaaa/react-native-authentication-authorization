@@ -12,9 +12,12 @@ const Login = () => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password)
                 console.log(response)
+                Alert.alert(`Welcome ${response.user.email}`)
         } catch (error) {
-            console.log(error)
-            Alert.alert('Error on Login', error.message)
+            console.log(error.message)
+            if (error.message === 'Firebase: Error (auth/invalid-email).') {
+                Alert.alert('Invalid Email')
+            } else Alert.alert('Error', error.message)
         }
     }
 
