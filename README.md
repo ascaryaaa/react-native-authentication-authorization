@@ -1,12 +1,18 @@
-Firebase Setup:
+## Firebase Setup:
 1. Add project
 2. Add web app and register app
 3. Add new provider: Native provider Email/Password
 
 ![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/08c5067a-a07c-474b-a00f-050b2a8bc203)
 
-5. Create handleRegister
+## Login and Register
+# Register
+1. Create handleRegister
 ```
+    const auth=FIREBASE_AUTH
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleRegister = async() => {
         try {
             const response = await createUserWithEmailAndPassword(auth, email, password)
@@ -18,16 +24,77 @@ Firebase Setup:
     }
 ```
 
-log response:
+2. log response:
 
 ![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/87eee5f5-d2e4-453a-8b24-b647620b9b43)
 
-6. Registered
+3. Registered on firebase
 ![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/386e16de-3c11-46cf-b71e-baadd8dd9212)
 
-Install Async Storage
+# Login
+1. Install Async Storage
 ```
 npm i @react-native-async-storage/async-storage
 ```
+2. Create handle Login 
+```
+    const auth=FIREBASE_AUTH
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-
+    const handleLogin = () => {
+        signInWithEmailAndPassword(auth, email, password) //1. sign in user
+        .then(response => response.user.getIdToken()) //2. call user id token
+        .then(token => AsyncStorage.setItem('token', token) ) //3. store token
+        .then(() => {
+            Alert.alert('Login Success!', 'Welcome!')
+        }) 
+    }
+```
+3. Create new screen and add it to navigation stack
+```
+import Home from './screens/Home';
+///
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            title:'Home',
+            headerShown: false,
+            headerTitleAlign: 'center'
+          }}
+        />
+///
+```
+4. Navigate login to the new screen
+```
+///
+            Alert.alert('Login Success!', 'Welcome!', [
+                {
+                    text: 'Ok',
+                    onPress: () => navigation.navigate('Home')
+                }
+            ])
+///
+```
+```
+const Login = ({navigation}) => {
+///
+}
+```
+Final loginHandle Code:
+```
+    const handleLogin = () => {
+        signInWithEmailAndPassword(auth, email, password) //1. sign in user
+        .then(response => response.user.getIdToken()) //2. call user id token
+        .then(token => AsyncStorage.setItem('token', token) ) //3. store token
+        .then(() => {
+            Alert.alert('Login Success!', 'Welcome!', [
+                {
+                    text: 'Ok',
+                    onPress: () => navigation.navigate('Home')
+                }
+            ])
+        }) 
+    }
+```
