@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './screens/Login';
+import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,15 @@ export default function App() {
           component={Login} 
           options={{
             title:'Login',
+            headerTitleAlign: 'center'
+          }}
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            title:'Home',
+            headerShown: 'false',
             headerTitleAlign: 'center'
           }}
         />

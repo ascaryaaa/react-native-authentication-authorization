@@ -3,7 +3,7 @@ import { useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP, FIREBASE_AUTH } from "../helpers/firebase";
 
-const Login = () => {
+const Login = ({navigation}) => {
     const auth=FIREBASE_AUTH
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -12,7 +12,15 @@ const Login = () => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password)
                 console.log(response)
-                Alert.alert(`Welcome ${response.user.email}`)
+                const username = response.user.email.split('@')[0];
+                Alert.alert('Login Succed', `Welcome ${username}`,[
+                    {
+                        Text: 'Ok',
+                        onPress: () => navigation.navigate('Home'),
+                    }
+
+                ])
+                // Alert.alert(`Welcome ${response.user.email}`)
         } catch (error) {
             console.log(error.message)
             if (error.message === 'Firebase: Error (auth/invalid-email).') {
@@ -25,9 +33,10 @@ const Login = () => {
         try {
             const response = await createUserWithEmailAndPassword(auth, email, password)
             console.log(response)
+            Alert.alert('Register Succeed', error.message)
         } catch(error) {
             console.log(error)
-            Alert.alert('Error on Register', error.message)
+            Alert.alert('Register Error', error.message)
         }
     }
 
