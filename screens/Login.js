@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP, FIREBASE_AUTH } from "../helpers/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,12 +9,22 @@ const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    useEffect(() => {
+        AsyncStorage
+        .getItem('token')
+        .then(token => {
+            if (token !== null) {
+                navigation.navigate('Home')
+            }
+        })
+    }, [])
+
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password) //1. sign in user
         .then(response => response.user.getIdToken()) //2. call user id token
         .then(token => AsyncStorage.setItem('token', token) ) //3. store token
         .then(() => {
-            Alert.alert('Login Success!', 'Welcome!', [
+            Alert.alert('Login Succed', `Welcome!`, [
                 {
                     text: 'Ok',
                     onPress: () => navigation.navigate('Home')
