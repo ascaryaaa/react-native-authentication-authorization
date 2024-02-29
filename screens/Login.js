@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native"
 import { useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP, FIREBASE_AUTH } from "../helpers/firebase";
@@ -11,10 +11,10 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password)
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+                console.log(response)
         } catch (error) {
-
+            console.log(error)
+            Alert.alert('Error on Login', error.message)
         }
     }
 
@@ -24,6 +24,7 @@ const Login = () => {
             console.log(response)
         } catch(error) {
             console.log(error)
+            Alert.alert('Error on Register', error.message)
         }
     }
 
