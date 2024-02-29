@@ -14,7 +14,8 @@ export default function App() {
           name="Login" 
           component={Login} 
           options={{
-            title:'Login'
+            title:'Login',
+            headerTitleAlign: 'center'
           }}
         />
       </Stack.Navigator>
