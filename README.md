@@ -25,4 +25,9 @@ log response:
 6. Registered
 ![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/386e16de-3c11-46cf-b71e-baadd8dd9212)
 
+Install Async Storage
+```
+npm i @react-native-async-storage/async-storage
+```
+
 
