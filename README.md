@@ -24,9 +24,11 @@
     }
 ```
 
-2. log response:
+2. log response example:
+```
+ LOG  {"_tokenResponse": {"displayName": "", "email": "jhon@gmail.com", "expiresIn": "3600", "idToken": "eyJhbG
+```
 
-![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/87eee5f5-d2e4-453a-8b24-b647620b9b43)
 
 3. Registered on firebase
 ![image](https://github.com/ascaryaaa/react-native-authentication-authorization/assets/73589875/386e16de-3c11-46cf-b71e-baadd8dd9212)
